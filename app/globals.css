@@ -127,7 +127,8 @@
   }
   
   .word.error {
-    @apply bg-red-500/20 rounded;
+    @apply rounded;
+    background-color: rgba(239, 68, 68, 0.2);
   }
   
   .letter {
@@ -139,15 +140,17 @@
   }
   
   .letter.incorrect {
-    @apply text-mt-error bg-mt-error/20;
+    @apply text-mt-error;
+    background-color: rgba(202, 71, 84, 0.2);
   }
   
   .letter.extra {
-    @apply text-mt-error bg-mt-error/30;
+    @apply text-mt-error;
+    background-color: rgba(202, 71, 84, 0.3);
   }
   
   .letter.current {
-    @apply bg-mt-sub/30;
+    background-color: rgba(100, 102, 105, 0.3);
   }
 
   .caret {

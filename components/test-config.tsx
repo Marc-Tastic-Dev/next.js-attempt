@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
 
 export function TestConfig() {
-  const { config, setConfig, resetTest } = useTypingStore()
+  const { config, setConfig, resetTest, togglePunctuation, toggleNumbers } = useTypingStore()
 
   const timeOptions = [15, 30, 60, 120]
   const wordOptions = [10, 25, 50, 100]
@@ -140,18 +140,44 @@ export function TestConfig() {
         variants={itemVariants}
       >
         <motion.div 
-          className="flex items-center space-x-2 cursor-pointer hover:text-gray-900 transition-colors"
+          className={`flex items-center space-x-2 cursor-pointer transition-colors ${
+            config.includePunctuation 
+              ? 'text-blue-600 hover:text-blue-700' 
+              : 'hover:text-gray-900'
+          }`}
           whileHover={{ scale: 1.02 }}
+          onClick={togglePunctuation}
         >
           <Hash className="w-4 h-4" />
           <span className="font-medium">punctuation</span>
+          {config.includePunctuation && (
+            <motion.div
+              className="w-2 h-2 bg-blue-600 rounded-full"
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            />
+          )}
         </motion.div>
         <motion.div 
-          className="flex items-center space-x-2 cursor-pointer hover:text-gray-900 transition-colors"
+          className={`flex items-center space-x-2 cursor-pointer transition-colors ${
+            config.includeNumbers 
+              ? 'text-blue-600 hover:text-blue-700' 
+              : 'hover:text-gray-900'
+          }`}
           whileHover={{ scale: 1.02 }}
+          onClick={toggleNumbers}
         >
           <Zap className="w-4 h-4" />
           <span className="font-medium">numbers</span>
+          {config.includeNumbers && (
+            <motion.div
+              className="w-2 h-2 bg-blue-600 rounded-full"
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            />
+          )}
         </motion.div>
       </motion.div>
     </motion.div>

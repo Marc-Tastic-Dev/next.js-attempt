@@ -43,7 +43,7 @@ export function StatsChart({ type }: StatsChartProps) {
   const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
       return (
-        <div className="bg-mt-bg border border-mt-sub/20 rounded-lg p-3 shadow-lg">
+        <div className="bg-mt-bg border rounded-lg p-3 shadow-lg" style={{ borderColor: 'rgba(100, 102, 105, 0.2)' }}>
           <p className="text-mt-sub text-sm">{label}</p>
           <p className="text-mt-text font-semibold">
             {type === 'wpm' ? `${payload[0].value} WPM` : `${payload[0].value}% Accuracy`}

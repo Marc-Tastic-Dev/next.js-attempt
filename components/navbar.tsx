@@ -10,7 +10,7 @@ export function Navbar() {
   const { theme, setTheme } = useTheme()
 
   return (
-    <nav className="border-b border-mt-sub/20 bg-mt-bg/95 backdrop-blur-sm sticky top-0 z-50">
+    <nav className="border-b border-mt-sub/20 bg-mt-bg/95 backdrop-blur-sm sticky top-0 z-50" style={{ backgroundColor: 'rgba(44, 46, 52, 0.95)' }}>
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-2">
@@ -22,7 +22,8 @@ export function Navbar() {
             <Button
               variant="ghost"
               size="sm"
-              className="text-mt-sub hover:text-mt-text hover:bg-mt-sub/10"
+              className="text-mt-sub hover:text-mt-text"
+              style={{ '--tw-bg-opacity': '0.1' } as React.CSSProperties}
               asChild
             >
               <Link href="/stats">
@@ -34,7 +35,8 @@ export function Navbar() {
             <Button
               variant="ghost"
               size="sm"
-              className="text-mt-sub hover:text-mt-text hover:bg-mt-sub/10"
+              className="text-mt-sub hover:text-mt-text"
+              style={{ '--tw-bg-opacity': '0.1' } as React.CSSProperties}
             >
               <Settings className="h-4 w-4" />
               <span className="ml-2 hidden sm:inline">settings</span>
@@ -44,7 +46,8 @@ export function Navbar() {
               variant="ghost"
               size="sm"
               onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-              className="text-mt-sub hover:text-mt-text hover:bg-mt-sub/10"
+              className="text-mt-sub hover:text-mt-text"
+              style={{ '--tw-bg-opacity': '0.1' } as React.CSSProperties}
             >
               {theme === 'dark' ? (
                 <Sun className="h-4 w-4" />

@@ -13,17 +13,20 @@ export function WordDisplay() {
   const renderCharacters = () => {
     return text.split('').map((char, index) => {
       let className = 'letter'
+      let style: React.CSSProperties = { position: 'relative' }
       
       if (index < input.length) {
         // Character has been typed
         if (input[index] === char) {
           className += ' correct text-mt-text'
         } else {
-          className += ' incorrect text-mt-error bg-mt-error/20'
+          className += ' incorrect text-mt-error'
+          style.backgroundColor = 'rgba(202, 71, 84, 0.2)'
         }
       } else if (index === input.length) {
         // Current character to type
-        className += ' current bg-mt-sub/30'
+        className += ' current'
+        style.backgroundColor = 'rgba(100, 102, 105, 0.3)'
       } else {
         // Untyped character
         className += ' text-mt-sub'
@@ -33,7 +36,7 @@ export function WordDisplay() {
         <span
           key={index}
           className={className}
-          style={{ position: 'relative' }}
+          style={style}
         >
           {char === ' ' ? '\u00A0' : char}
         </span>

@@ -25,6 +25,9 @@ export default function StatsPage() {
     { date: '2024-01-13', wpm: 70, accuracy: 96.8, mode: '30s' },
   ]
 
+  const borderStyle = { borderColor: 'rgba(100, 102, 105, 0.2)' }
+  const borderStyleLight = { borderColor: 'rgba(100, 102, 105, 0.1)' }
+
   return (
     <div className="max-w-6xl mx-auto space-y-8">
       {/* Header */}
@@ -42,36 +45,36 @@ export default function StatsPage() {
 
       {/* Overview Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-        <div className="bg-mt-bg border border-mt-sub/20 rounded-lg p-4 text-center">
+        <div className="bg-mt-bg border rounded-lg p-4 text-center" style={borderStyle}>
           <TrendingUp className="w-6 h-6 text-mt-main mx-auto mb-2" />
           <div className="text-2xl font-bold text-mt-text">{mockStats.averageWpm}</div>
           <div className="text-sm text-mt-sub">avg wpm</div>
         </div>
         
-        <div className="bg-mt-bg border border-mt-sub/20 rounded-lg p-4 text-center">
+        <div className="bg-mt-bg border rounded-lg p-4 text-center" style={borderStyle}>
           <Zap className="w-6 h-6 text-mt-main mx-auto mb-2" />
           <div className="text-2xl font-bold text-mt-text">{mockStats.bestWpm}</div>
           <div className="text-sm text-mt-sub">best wpm</div>
         </div>
         
-        <div className="bg-mt-bg border border-mt-sub/20 rounded-lg p-4 text-center">
+        <div className="bg-mt-bg border rounded-lg p-4 text-center" style={borderStyle}>
           <Target className="w-6 h-6 text-mt-main mx-auto mb-2" />
           <div className="text-2xl font-bold text-mt-text">{mockStats.averageAccuracy}%</div>
           <div className="text-sm text-mt-sub">avg accuracy</div>
         </div>
         
-        <div className="bg-mt-bg border border-mt-sub/20 rounded-lg p-4 text-center">
+        <div className="bg-mt-bg border rounded-lg p-4 text-center" style={borderStyle}>
           <Clock className="w-6 h-6 text-mt-main mx-auto mb-2" />
           <div className="text-2xl font-bold text-mt-text">{mockStats.testsCompleted}</div>
           <div className="text-sm text-mt-sub">tests completed</div>
         </div>
         
-        <div className="bg-mt-bg border border-mt-sub/20 rounded-lg p-4 text-center">
+        <div className="bg-mt-bg border rounded-lg p-4 text-center" style={borderStyle}>
           <div className="text-2xl font-bold text-mt-text">{mockStats.timeTyping}</div>
           <div className="text-sm text-mt-sub">time typing</div>
         </div>
         
-        <div className="bg-mt-bg border border-mt-sub/20 rounded-lg p-4 text-center">
+        <div className="bg-mt-bg border rounded-lg p-4 text-center" style={borderStyle}>
           <div className="text-2xl font-bold text-mt-text">{mockStats.totalWords}</div>
           <div className="text-sm text-mt-sub">words typed</div>
         </div>
@@ -79,24 +82,24 @@ export default function StatsPage() {
 
       {/* Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div className="bg-mt-bg border border-mt-sub/20 rounded-lg p-6">
+        <div className="bg-mt-bg border rounded-lg p-6" style={borderStyle}>
           <h2 className="text-xl font-semibold text-mt-text mb-4">WPM Over Time</h2>
           <StatsChart type="wpm" />
         </div>
         
-        <div className="bg-mt-bg border border-mt-sub/20 rounded-lg p-6">
+        <div className="bg-mt-bg border rounded-lg p-6" style={borderStyle}>
           <h2 className="text-xl font-semibold text-mt-text mb-4">Accuracy Over Time</h2>
           <StatsChart type="accuracy" />
         </div>
       </div>
 
       {/* Recent Tests */}
-      <div className="bg-mt-bg border border-mt-sub/20 rounded-lg p-6">
+      <div className="bg-mt-bg border rounded-lg p-6" style={borderStyle}>
         <h2 className="text-xl font-semibold text-mt-text mb-4">Recent Tests</h2>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-mt-sub/20">
+              <tr className="border-b" style={borderStyle}>
                 <th className="text-left py-2 text-mt-sub">Date</th>
                 <th className="text-left py-2 text-mt-sub">WPM</th>
                 <th className="text-left py-2 text-mt-sub">Accuracy</th>
@@ -105,7 +108,7 @@ export default function StatsPage() {
             </thead>
             <tbody>
               {mockRecentTests.map((test, index) => (
-                <tr key={index} className="border-b border-mt-sub/10">
+                <tr key={index} className="border-b" style={borderStyleLight}>
                   <td className="py-3 text-mt-text">{test.date}</td>
                   <td className="py-3 text-mt-text font-semibold">{test.wpm}</td>
                   <td className="py-3 text-mt-text">{test.accuracy}%</td>
@@ -118,7 +121,7 @@ export default function StatsPage() {
       </div>
 
       {/* Personal Bests */}
-      <div className="bg-mt-bg border border-mt-sub/20 rounded-lg p-6">
+      <div className="bg-mt-bg border rounded-lg p-6" style={borderStyle}>
         <h2 className="text-xl font-semibold text-mt-text mb-4">Personal Bests</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div className="text-center">

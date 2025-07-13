@@ -76,8 +76,12 @@ export function TestBox() {
         className={`relative p-8 rounded-lg border-2 transition-colors duration-200 cursor-text ${
           isFocused
             ? 'border-mt-main bg-mt-bg'
-            : 'border-mt-sub/20 bg-mt-bg hover:border-mt-sub/40'
+            : 'border-mt-sub bg-mt-bg'
         }`}
+        style={{
+          borderColor: isFocused ? undefined : 'rgba(100, 102, 105, 0.2)',
+          '--tw-border-opacity': isFocused ? undefined : '0.4'
+        } as React.CSSProperties}
         onClick={handleContainerClick}
       >
         {/* Hidden input for capturing keystrokes */}
@@ -114,8 +118,8 @@ export function TestBox() {
         {!isTestActive && (
           <div className="mt-8 text-center text-mt-sub text-sm">
             <div className="space-y-1">
-              <div>Press <kbd className="px-2 py-1 bg-mt-sub/20 rounded">Tab</kbd> to restart</div>
-              <div>Press <kbd className="px-2 py-1 bg-mt-sub/20 rounded">Esc</kbd> to reset</div>
+              <div>Press <kbd className="px-2 py-1 rounded" style={{ backgroundColor: 'rgba(100, 102, 105, 0.2)' }}>Tab</kbd> to restart</div>
+              <div>Press <kbd className="px-2 py-1 rounded" style={{ backgroundColor: 'rgba(100, 102, 105, 0.2)' }}>Esc</kbd> to reset</div>
             </div>
           </div>
         )}

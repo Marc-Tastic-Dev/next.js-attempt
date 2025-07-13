@@ -77,7 +77,8 @@ export function TestResults() {
         
         <Button
           variant="outline"
-          className="border-mt-sub text-mt-sub hover:bg-mt-sub/10 hover:text-mt-text"
+          className="border-mt-sub text-mt-sub hover:text-mt-text"
+          style={{ '--tw-bg-opacity': '0.1' } as React.CSSProperties}
         >
           <Share className="w-4 h-4 mr-2" />
           Share
@@ -86,7 +87,7 @@ export function TestResults() {
 
       {/* Quick restart hint */}
       <div className="text-xs text-mt-sub">
-        Press <kbd className="px-1 py-0.5 bg-mt-sub/20 rounded text-xs">Tab</kbd> to quickly restart
+        Press <kbd className="px-1 py-0.5 rounded text-xs" style={{ backgroundColor: 'rgba(100, 102, 105, 0.2)' }}>Tab</kbd> to quickly restart
       </div>
     </div>
   )

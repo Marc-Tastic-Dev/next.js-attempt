@@ -65,7 +65,7 @@ export function TestBox() {
   if (words.length === 0) {
     return (
       <motion.div 
-        className="flex items-center justify-center h-32 text-mt-sub"
+        className="flex items-center justify-center h-32 text-gray-500"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
       >
@@ -91,15 +91,11 @@ export function TestBox() {
       <StatsDisplay />
       
       <motion.div
-        className={`relative p-8 rounded-2xl border-2 transition-all duration-300 cursor-text ${
+        className={`relative p-8 rounded-lg border-2 transition-all duration-300 cursor-text ${
           isFocused
-            ? 'border-mt-main bg-mt-bg shadow-lg shadow-mt-main/20'
-            : 'border-mt-sub bg-mt-bg/50 hover:border-mt-sub/40 hover:bg-mt-bg/70'
+            ? 'border-blue-500 bg-white shadow-lg'
+            : 'border-gray-200 bg-white hover:border-gray-300 hover:shadow-md'
         }`}
-        style={{
-          borderColor: isFocused ? undefined : 'rgba(100, 102, 105, 0.2)',
-          '--tw-border-opacity': isFocused ? undefined : '0.4'
-        } as React.CSSProperties}
         onClick={handleContainerClick}
         whileHover={{ scale: isFocused ? 1 : 1.01 }}
         whileTap={{ scale: 0.99 }}
@@ -123,7 +119,7 @@ export function TestBox() {
         <AnimatePresence>
           {!isFocused && !isTestActive && (
             <motion.div 
-              className="absolute inset-0 flex items-center justify-center bg-mt-bg/90 backdrop-blur-sm rounded-2xl"
+              className="absolute inset-0 flex items-center justify-center bg-white/90 backdrop-blur-sm rounded-lg"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
@@ -135,9 +131,9 @@ export function TestBox() {
                   transition={{ duration: 2, repeat: Infinity }}
                   className="mb-4"
                 >
-                  <MousePointer className="w-8 h-8 text-mt-main mx-auto" />
+                  <MousePointer className="w-8 h-8 text-blue-600 mx-auto" />
                 </motion.div>
-                <div className="text-mt-sub text-lg font-medium">
+                <div className="text-gray-600 text-lg font-medium">
                   Click here or start typing to focus
                 </div>
               </div>
@@ -155,7 +151,7 @@ export function TestBox() {
         <AnimatePresence>
           {!isTestActive && (
             <motion.div 
-              className="mt-8 text-center text-mt-sub text-sm"
+              className="mt-8 text-center text-gray-500 text-sm"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 10 }}
@@ -163,13 +159,13 @@ export function TestBox() {
             >
               <div className="space-y-2">
                 <div className="flex items-center justify-center space-x-2">
-                  <kbd className="px-3 py-1 bg-mt-sub/20 rounded-lg text-xs font-mono border border-mt-sub/30">
+                  <kbd className="px-3 py-1 bg-gray-100 rounded-lg text-xs font-mono border border-gray-200">
                     Tab
                   </kbd>
                   <span>to restart</span>
                 </div>
                 <div className="flex items-center justify-center space-x-2">
-                  <kbd className="px-3 py-1 bg-mt-sub/20 rounded-lg text-xs font-mono border border-mt-sub/30">
+                  <kbd className="px-3 py-1 bg-gray-100 rounded-lg text-xs font-mono border border-gray-200">
                     Esc
                   </kbd>
                   <span>to reset</span>

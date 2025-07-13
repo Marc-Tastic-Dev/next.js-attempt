@@ -1,13 +1,12 @@
 import type { Metadata } from 'next'
-import { JetBrains_Mono } from 'next/font/google'
+import { Inter } from 'next/font/google'
 import React from 'react'
 import './globals.css'
-import { ThemeProvider } from '@/components/theme-provider'
 import { Navbar } from '@/components/navbar'
 
-const jetbrainsMono = JetBrains_Mono({ 
+const inter = Inter({ 
   subsets: ['latin'],
-  variable: '--font-mono',
+  variable: '--font-inter',
   display: 'swap',
 })
 
@@ -24,20 +23,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${jetbrainsMono.variable} font-mono antialiased`}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <div className="min-h-screen bg-mt-bg text-mt-text">
-            <Navbar />
-            <main className="container mx-auto px-4 py-8">
-              {children}
-            </main>
-          </div>
-        </ThemeProvider>
+      <body className={`${inter.variable} font-sans antialiased`}>
+        <div className="min-h-screen bg-white text-gray-900">
+          <Navbar />
+          <main className="container mx-auto px-4 py-8">
+            {children}
+          </main>
+        </div>
       </body>
     </html>
   )

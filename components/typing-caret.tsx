@@ -23,7 +23,7 @@ export function TypingCaret() {
       
       // Create a temporary span to measure text width
       const tempSpan = document.createElement('span')
-      tempSpan.style.font = 'inherit'
+      tempSpan.style.font = 'var(--font-mono)'
       tempSpan.style.visibility = 'hidden'
       tempSpan.style.position = 'absolute'
       tempSpan.style.whiteSpace = 'pre'
@@ -85,11 +85,11 @@ export function TypingCaret() {
     <div ref={containerRef} className="relative">
       <motion.div
         ref={caretRef}
-        className="absolute w-0.5 h-7 bg-mt-caret pointer-events-none z-10 rounded-full"
+        className="absolute w-0.5 h-6 bg-blue-600 rounded-full pointer-events-none z-10"
         animate={controls}
         initial={{ x: 0, y: 0, opacity: 1 }}
         style={{
-          boxShadow: '0 0 8px rgba(226, 183, 20, 0.6)'
+          boxShadow: '0 0 8px rgba(47, 128, 237, 0.4)'
         }}
       />
     </div>

@@ -27,24 +27,24 @@ export function StatsDisplay() {
       value: stats.wpm,
       label: 'wpm',
       icon: TrendingUp,
-      color: 'text-mt-main'
+      color: 'text-blue-600'
     },
     {
       value: stats.accuracy,
       label: 'acc',
       icon: Target,
-      color: 'text-green-400'
+      color: 'text-green-600'
     },
     ...(config.mode === 'time' ? [{
       value: getTimeRemaining(),
       label: 'time',
       icon: Clock,
-      color: 'text-blue-400'
+      color: 'text-gray-600'
     }] : [{
       value: config.wordCount,
       label: 'words',
       icon: Zap,
-      color: 'text-purple-400'
+      color: 'text-purple-600'
     }])
   ]
 
@@ -75,7 +75,7 @@ export function StatsDisplay() {
               {item.label === 'acc' ? `${item.value}%` : item.value}
             </motion.div>
           </div>
-          <div className="text-sm text-mt-sub font-medium uppercase tracking-wider">
+          <div className="text-sm text-gray-600 font-medium uppercase tracking-wider">
             {item.label}
           </div>
         </motion.div>

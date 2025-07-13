@@ -1,15 +1,20 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { JetBrains_Mono } from 'next/font/google'
 import React from 'react'
 import './globals.css'
 import { ThemeProvider } from '@/components/theme-provider'
 import { Navbar } from '@/components/navbar'
 
-const inter = Inter({ subsets: ['latin'] })
+const jetbrainsMono = JetBrains_Mono({ 
+  subsets: ['latin'],
+  variable: '--font-mono',
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
-  title: 'Monkeytype Clone',
-  description: 'A modern typing test application',
+  title: 'Monkeytype Clone - Typing Test',
+  description: 'A modern, fast, and accurate typing test application',
+  keywords: 'typing test, wpm, accuracy, speed typing, monkeytype',
 }
 
 export default function RootLayout({
@@ -19,14 +24,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className={`${jetbrainsMono.variable} font-mono antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >
-          <div className="min-h-screen bg-mt-bg">
+          <div className="min-h-screen bg-mt-bg text-mt-text">
             <Navbar />
             <main className="container mx-auto px-4 py-8">
               {children}

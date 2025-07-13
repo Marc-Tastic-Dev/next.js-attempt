@@ -1,13 +1,15 @@
 'use client'
 
-import React, { useEffect, useRef } from 'react'
-import { gsap } from 'gsap'
+import React, { useEffect, useRef, useState } from 'react'
+import { motion, useAnimation } from 'framer-motion'
 import { useTypingStore } from '@/store/typing-store'
 
 export function TypingCaret() {
   const { input, words, isTestActive } = useTypingStore()
   const caretRef = useRef<HTMLDivElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
+  const controls = useAnimation()
+  const [caretPosition, setCaretPosition] = useState({ x: 0, y: 0 })
 
   useEffect(() => {
     if (!caretRef.current || !containerRef.current) return
@@ -42,44 +44,53 @@ export function TypingCaret() {
       return { x, y }
     }
 
-    const { x, y } = getCaretPosition()
+    const newPosition = getCaretPosition()
+    setCaretPosition(newPosition)
     
     // Animate caret to new position
-    gsap.to(caretRef.current, {
-      x,
-      y,
-      duration: 0.1,
-      ease: 'power2.out',
+    controls.start({
+      x: newPosition.x,
+      y: newPosition.y,
+      transition: {
+        type: "spring",
+        stiffness: 300,
+        damping: 30,
+        duration: 0.1
+      }
     })
 
     // Animate blinking
     if (isTestActive) {
-      gsap.set(caretRef.current, { opacity: 1 })
-      gsap.to(caretRef.current, {
-        opacity: 0,
-        duration: 0.5,
-        repeat: -1,
-        yoyo: true,
-        ease: 'power2.inOut',
+      controls.start({
+        opacity: [1, 0, 1],
+        transition: {
+          duration: 1,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }
       })
     } else {
-      gsap.killTweensOf(caretRef.current)
-      gsap.to(caretRef.current, {
-        opacity: 1,
-        duration: 0.5,
-        repeat: -1,
-        yoyo: true,
-        ease: 'power2.inOut',
+      controls.start({
+        opacity: [1, 0.5, 1],
+        transition: {
+          duration: 1.5,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }
       })
     }
-  }, [input, words, isTestActive])
+  }, [input, words, isTestActive, controls])
 
   return (
     <div ref={containerRef} className="relative">
-      <div
+      <motion.div
         ref={caretRef}
-        className="absolute w-0.5 h-7 bg-mt-caret pointer-events-none z-10"
-        style={{ transform: 'translateX(0px) translateY(0px)' }}
+        className="absolute w-0.5 h-7 bg-mt-caret pointer-events-none z-10 rounded-full"
+        animate={controls}
+        initial={{ x: 0, y: 0, opacity: 1 }}
+        style={{
+          boxShadow: '0 0 8px rgba(226, 183, 20, 0.6)'
+        }}
       />
     </div>
   )

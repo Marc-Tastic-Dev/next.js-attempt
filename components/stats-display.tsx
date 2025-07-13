@@ -1,7 +1,9 @@
 'use client'
 
 import React, { useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { useTypingStore } from '@/store/typing-store'
+import { TrendingUp, Target, Clock, Zap } from 'lucide-react'
 
 export function StatsDisplay() {
   const { stats, config, isTestActive, isTestCompleted, startTime, updateStats } = useTypingStore()
@@ -20,31 +22,64 @@ export function StatsDisplay() {
     return Math.max(0, config.timeLimit - elapsed)
   }
 
+  const statItems = [
+    {
+      value: stats.wpm,
+      label: 'wpm',
+      icon: TrendingUp,
+      color: 'text-mt-main'
+    },
+    {
+      value: stats.accuracy,
+      label: 'acc',
+      icon: Target,
+      color: 'text-green-400'
+    },
+    ...(config.mode === 'time' ? [{
+      value: getTimeRemaining(),
+      label: 'time',
+      icon: Clock,
+      color: 'text-blue-400'
+    }] : [{
+      value: config.wordCount,
+      label: 'words',
+      icon: Zap,
+      color: 'text-purple-400'
+    }])
+  ]
+
   return (
-    <div className="flex justify-center space-x-8 mb-8 text-mt-main">
-      <div className="flex flex-col items-center">
-        <div className="text-3xl font-bold">{stats.wpm}</div>
-        <div className="text-sm text-mt-sub">wpm</div>
-      </div>
-      
-      <div className="flex flex-col items-center">
-        <div className="text-3xl font-bold">{stats.accuracy}%</div>
-        <div className="text-sm text-mt-sub">acc</div>
-      </div>
-      
-      {config.mode === 'time' && (
-        <div className="flex flex-col items-center">
-          <div className="text-3xl font-bold">{getTimeRemaining()}</div>
-          <div className="text-sm text-mt-sub">time</div>
-        </div>
-      )}
-      
-      {config.mode === 'words' && (
-        <div className="flex flex-col items-center">
-          <div className="text-3xl font-bold">{config.wordCount}</div>
-          <div className="text-sm text-mt-sub">words</div>
-        </div>
-      )}
-    </div>
+    <motion.div 
+      className="flex justify-center space-x-8 mb-8"
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, staggerChildren: 0.1 }}
+    >
+      {statItems.map((item, index) => (
+        <motion.div
+          key={item.label}
+          className="flex flex-col items-center"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: index * 0.1 }}
+        >
+          <div className="relative">
+            <item.icon className={`w-6 h-6 ${item.color} mb-2 mx-auto opacity-60`} />
+            <motion.div
+              className={`text-4xl font-bold ${item.color} tracking-tight`}
+              key={item.value}
+              initial={{ scale: 1.2, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            >
+              {item.label === 'acc' ? `${item.value}%` : item.value}
+            </motion.div>
+          </div>
+          <div className="text-sm text-mt-sub font-medium uppercase tracking-wider">
+            {item.label}
+          </div>
+        </motion.div>
+      ))}
+    </motion.div>
   )
 }

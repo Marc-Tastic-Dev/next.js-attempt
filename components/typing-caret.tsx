@@ -37,11 +37,11 @@ export function TypingCaret() {
       const containerWidth = containerRef.current?.offsetWidth || 800
       const charWidth = width / currentCharIndex || 14
       const charsPerLine = Math.floor(containerWidth / charWidth)
-      
-      const x = (currentCharIndex % charsPerLine) * charWidth
+      // Subtract a small offset so caret appears before the character
+      const caretOffset = 2 // px, adjust as needed for visual alignment
+      const x = (currentCharIndex % charsPerLine) * charWidth - caretOffset
       const y = Math.floor(currentCharIndex / charsPerLine) * 32 // line height
-      
-      return { x, y }
+      return { x: Math.max(0, x), y }
     }
 
     const newPosition = getCaretPosition()

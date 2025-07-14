@@ -4,7 +4,7 @@ import React from 'react'
 import { RotateCcw, Share, Trophy, Target, Clock, AlertCircle } from 'lucide-react'
 import { useTypingStore } from '@/store/typing-store'
 import { Button } from '@/components/ui/button'
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 
 export function TestResults() {
   const { stats, config, resetTest } = useTypingStore()

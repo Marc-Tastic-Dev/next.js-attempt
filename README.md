@@ -1,125 +1,206 @@
-# Monkeytype Clone
+# TypeSpeed - Typing Test Application
 
-A beautiful, fast, and accurate typing test application built with Next.js 13+, TypeScript, TailwindCSS, and GSAP animations.
+A modern, feature-rich typing test application built with Next.js, TypeScript, Prisma, and Neon PostgreSQL.
 
 ## Features
 
-🚀 **Core Features:**
-- Real-time typing test with WPM, accuracy, and speed tracking
-- Smooth GSAP-powered caret animations
-- Character-level typing feedback with visual highlights
-- Multiple test modes: Time-based (15s, 30s, 60s, 120s) and Word-based (10, 25, 50, 100 words)
-- Beautiful Monkeytype-inspired UI with multiple themes
+### � Core Features
+- **Real-time typing test** with configurable duration (15s, 30s, 60s, 120s)
+- **Live WPM and accuracy calculation**
+- **Smooth animations** using motion.dev
+- **Dark/Light theme support** with next-themes
+- **Responsive design** with Tailwind CSS
 
-⚙️ **Technical Features:**
-- Built with Next.js 13+ App Router
-- TypeScript for type safety
-- TailwindCSS for styling
-- Zustand for state management
-- GSAP for smooth animations
-- shadcn/ui for beautiful components
-- Persistent settings with localStorage
+### 🔐 Authentication
+- **NextAuth.js integration** with custom credentials provider
+- **User registration and login**
+- **Session management** with JWT strategy
+- **Protected routes** for dashboard and settings
 
-🎨 **Themes:**
-- Serika (default)
-- Coral
-- Blueberry
-- Light/Dark mode support
+### 📊 Dashboard & Analytics
+- **Comprehensive stats dashboard** with filtering options
+- **Interactive charts** showing WPM and accuracy over time
+- **Filter by date range and test length**
+- **Performance summary cards** (total tests, averages, personal bests)
+- **Recent tests table** with detailed breakdown
 
-## Getting Started
+### ⚙️ Settings & Customization
+- **Theme toggle** (Light/Dark/System)
+- **Profile management** (username, email)
+- **Test configuration** (time limits, punctuation, numbers)
 
-### Prerequisites
-- Node.js 18+ 
-- npm or yarn
+### 🗄️ Database & API
+- **Neon PostgreSQL database** with Prisma ORM
+- **Type-safe API routes** with Zod validation
+- **Automatic stats saving** after each test
+- **RESTful endpoints** for stats management
 
-### Installation
+## Tech Stack
 
-1. Clone the repository:
-\`\`\`bash
-git clone <repository-url>
-cd monkeytype-clone
-\`\`\`
+- **Framework**: Next.js 14 (App Router)
+- **Language**: TypeScript
+- **Database**: Neon PostgreSQL
+- **ORM**: Prisma
+- **Authentication**: NextAuth.js
+- **Styling**: Tailwind CSS
+- **Animations**: Motion.dev
+- **State Management**: Zustand
+- **Charts**: Recharts
+- **UI Components**: Radix UI
+- **Validation**: Zod
 
-2. Install dependencies:
-\`\`\`bash
-npm install
-\`\`\`
+## Database Schema
 
-3. Start the development server:
-\`\`\`bash
-npm run dev
-\`\`\`
+### User Model
+```sql
+- id: String (cuid, primary key)
+- username: String (unique, optional)
+- email: String (unique)
+- emailVerified: DateTime (optional)
+- image: String (optional)
+- createdAt: DateTime (default: now)
+```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+### TypingStat Model
+```sql
+- id: String (cuid, primary key)
+- userId: String (foreign key to User)
+- wpm: Float (words per minute)
+- accuracy: Float (percentage 0-100)
+- testLength: Int (test duration in seconds)
+- createdAt: DateTime (default: now)
+```
+
+## API Routes
+
+### Authentication
+- `POST /api/auth/[...nextauth]` - NextAuth.js authentication endpoint
+
+### Typing Stats
+- `POST /api/typing-stats` - Save new typing test result
+- `GET /api/typing-stats` - Retrieve user's typing stats with optional filters
+
+#### POST /api/typing-stats
+```json
+{
+  "wpm": 75.5,
+  "accuracy": 94.2,
+  "testLength": 60
+}
+```
+
+#### GET /api/typing-stats
+Query parameters:
+- `dateFrom`: Filter from date (ISO string)
+- `dateTo`: Filter to date (ISO string)
+- `testLength`: Filter by test duration
+- `limit`: Number of results to return
+
+## Environment Variables
+
+Create a `.env` file in the root directory:
+
+```env
+# Database
+DATABASE_URL="your-neon-database-url"
+
+# NextAuth
+NEXTAUTH_SECRET="your-nextauth-secret"
+NEXTAUTH_URL="http://localhost:3000"
+```
+
+## Installation & Setup
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/Marc-Tastic-Dev/next.js-attempt.git
+   cd next.js-attempt
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Set up environment variables**
+   - Copy `.env.example` to `.env`
+   - Add your Neon database URL
+   - Add your NextAuth secret
+
+4. **Set up the database**
+   ```bash
+   npx prisma generate
+   npx prisma db push
+   ```
+
+5. **Run the development server**
+   ```bash
+   npm run dev
+   ```
+
+6. **Open in browser**
+   ```
+   http://localhost:3000
+   ```
 
 ## Usage
 
-### Keyboard Shortcuts
-- **Tab**: Restart test
-- **Esc**: Reset test
-- **Click or start typing**: Focus the typing area
+### 1. Authentication
+- Sign up for a new account or sign in with existing credentials
+- Session is maintained across browser tabs
 
-### Test Configuration
-1. Select test mode: Time or Words
-2. Choose duration (time mode) or word count (words mode)
-3. Start typing to begin the test
-4. View real-time stats: WPM, accuracy, and remaining time/words
+### 2. Taking a Test
+- Configure test settings (duration, punctuation, numbers)
+- Start typing when ready - test begins automatically
+- View real-time WPM and accuracy feedback
+- See detailed results after completion
 
-### Features
-- **Real-time feedback**: See correct/incorrect characters as you type
-- **Smooth animations**: GSAP-powered caret movement and transitions
-- **Detailed results**: Complete statistics after test completion
-- **Theme switching**: Multiple beautiful color schemes
-- **Responsive design**: Works perfectly on desktop and mobile
+### 3. Dashboard
+- View comprehensive statistics
+- Filter by date range or test length
+- Analyze performance trends with interactive charts
+- Track personal bests and averages
 
-## Technology Stack
-
-- **Framework**: Next.js 13+ with App Router
-- **Language**: TypeScript
-- **Styling**: TailwindCSS
-- **State Management**: Zustand
-- **Animations**: GSAP
-- **UI Components**: shadcn/ui + Radix UI
-- **Icons**: Lucide React
-- **Fonts**: JetBrains Mono
+### 4. Settings
+- Toggle between light and dark themes
+- Update profile information
+- Customize test preferences
 
 ## Project Structure
 
-\`\`\`
+```
 ├── app/                    # Next.js app directory
-│   ├── globals.css        # Global styles and theme variables
-│   ├── layout.tsx         # Root layout with theme provider
-│   └── page.tsx           # Main typing test page
+│   ├── api/               # API routes
+│   ├── auth/              # Authentication pages
+│   ├── dashboard/         # Dashboard page
+│   ├── settings/          # Settings page
+│   └── layout.tsx         # Root layout
 ├── components/            # React components
-│   ├── ui/               # shadcn/ui components
-│   ├── navbar.tsx        # Navigation bar
-│   ├── test-box.tsx      # Main typing test container
-│   ├── test-config.tsx   # Test configuration controls
-│   ├── test-results.tsx  # Results display after test
-│   ├── typing-caret.tsx  # Animated typing caret
-│   ├── word-display.tsx  # Word rendering with highlights
-│   └── stats-display.tsx # Real-time statistics
-├── lib/                  # Utility functions
-│   └── utils.ts          # Class name utilities
-├── store/                # State management
-│   └── typing-store.ts   # Zustand store for typing state
-└── public/               # Static assets
-\`\`\`
+│   ├── ui/               # Reusable UI components
+│   ├── navbar.tsx        # Navigation component
+│   ├── test-box.tsx      # Main typing test component
+│   └── ...
+├── lib/                   # Utility libraries
+│   ├── auth.ts           # NextAuth configuration
+│   ├── prisma.ts         # Prisma client
+│   └── utils.ts          # Helper functions
+├── prisma/                # Database schema
+├── store/                 # Zustand stores
+└── types/                 # TypeScript type definitions
+```
 
 ## Contributing
 
 1. Fork the repository
-2. Create your feature branch (\`git checkout -b feature/amazing-feature\`)
-3. Commit your changes (\`git commit -m 'Add some amazing feature'\`)
-4. Push to the branch (\`git push origin feature/amazing-feature\`)
-5. Open a Pull Request
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
 
 ## License
 
-This project is for educational purposes. Inspired by [Monkeytype](https://monkeytype.com/).
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-## Acknowledgments
+## Support
 
-- [Monkeytype](https://monkeytype.com/) for the original inspiration
-- [shadcn/ui](https://ui.shadcn.com/) for the beautiful UI components
-- [GSAP](https://gsap.com/) for smooth animations
+If you encounter any issues or have questions, please open an issue on GitHub.

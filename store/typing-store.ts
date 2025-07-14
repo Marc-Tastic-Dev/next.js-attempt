@@ -32,6 +32,7 @@ interface TypingState {
   resetTest: () => void
   setConfig: (config: Partial<TypingConfig>) => void
   updateStats: () => void
+  saveStats: () => Promise<void>
   togglePunctuation: () => void
   toggleNumbers: () => void
 }
@@ -227,6 +228,33 @@ export const useTypingStore = create<TypingState>((set, get) => ({
         errors
       }
     })
+
+    // Save stats to API
+    get().saveStats()
+  },
+
+  saveStats: async () => {
+    const { stats, config } = get()
+    
+    try {
+      const response = await fetch('/api/typing-stats', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          wpm: stats.wpm,
+          accuracy: stats.accuracy,
+          testLength: config.timeLimit,
+        }),
+      })
+
+      if (!response.ok) {
+        console.error('Failed to save typing stats')
+      }
+    } catch (error) {
+      console.error('Error saving typing stats:', error)
+    }
   },
 
   togglePunctuation: () => {

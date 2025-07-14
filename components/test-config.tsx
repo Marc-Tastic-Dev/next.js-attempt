@@ -4,7 +4,7 @@ import React from 'react'
 import { Clock, Type, Hash, Zap } from 'lucide-react'
 import { useTypingStore } from '@/store/typing-store'
 import { Button } from '@/components/ui/button'
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 
 export function TestConfig() {
   const { config, setConfig, resetTest, togglePunctuation, toggleNumbers } = useTypingStore()

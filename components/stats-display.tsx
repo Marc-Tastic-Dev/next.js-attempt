@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence } from 'motion/react'
 import { useTypingStore } from '@/store/typing-store'
 import { TrendingUp, Target, Clock, Zap } from 'lucide-react'
 

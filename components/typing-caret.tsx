@@ -1,14 +1,14 @@
 'use client'
 
 import React, { useEffect, useRef, useState } from 'react'
-import { motion, useAnimation } from 'framer-motion'
+import { motion, useAnimate } from 'motion/react'
 import { useTypingStore } from '@/store/typing-store'
 
 export function TypingCaret() {
   const { input, words, isTestActive } = useTypingStore()
   const caretRef = useRef<HTMLDivElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
-  const controls = useAnimation()
+  const [scope, animate] = useAnimate()
   const [caretPosition, setCaretPosition] = useState({ x: 0, y: 0 })
 
   useEffect(() => {
@@ -48,45 +48,41 @@ export function TypingCaret() {
     setCaretPosition(newPosition)
     
     // Animate caret to new position
-    controls.start({
+    animate(scope.current, {
       x: newPosition.x,
       y: newPosition.y,
-      transition: {
-        type: "spring",
-        stiffness: 300,
-        damping: 30,
-        duration: 0.1
-      }
+    }, {
+      type: "spring",
+      stiffness: 300,
+      damping: 30,
+      duration: 0.1
     })
 
     // Animate blinking
     if (isTestActive) {
-      controls.start({
+      animate(scope.current, {
         opacity: [1, 0, 1],
-        transition: {
-          duration: 1,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }
+      }, {
+        duration: 1,
+        repeat: Infinity,
+        ease: "easeInOut"
       })
     } else {
-      controls.start({
+      animate(scope.current, {
         opacity: [1, 0.5, 1],
-        transition: {
-          duration: 1.5,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }
+      }, {
+        duration: 1.5,
+        repeat: Infinity,
+        ease: "easeInOut"
       })
     }
-  }, [input, words, isTestActive, controls])
+  }, [input, words, isTestActive, animate])
 
   return (
     <div ref={containerRef} className="relative">
       <motion.div
-        ref={caretRef}
+        ref={scope}
         className="absolute w-0.5 h-6 bg-blue-600 rounded-full pointer-events-none z-10"
-        animate={controls}
         initial={{ x: 0, y: 0, opacity: 1 }}
         style={{
           boxShadow: '0 0 8px rgba(47, 128, 237, 0.4)'

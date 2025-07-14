@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useEffect, useRef, useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence } from 'motion/react'
 import { useTypingStore } from '@/store/typing-store'
 import { TypingCaret } from '@/components/typing-caret'
 import { WordDisplay } from '@/components/word-display'

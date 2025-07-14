@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { useTypingStore } from '@/store/typing-store'
 
 export function WordDisplay() {
